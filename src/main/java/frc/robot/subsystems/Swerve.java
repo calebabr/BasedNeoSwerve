@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.utils.SwerveModule;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class Swerve extends SubsystemBase {
   private final SwerveModule[] modules;
@@ -106,7 +107,7 @@ public class Swerve extends SubsystemBase {
   }
 
   public Rotation2d getYaw() {
-    return Rotation2d.fromDegrees(-gyro.getYaw());
+    return Rotation2d.fromDegrees(gyro.getYaw());
   }
 
   public Command zeroGyroCommand() {
@@ -128,6 +129,13 @@ public class Swerve extends SubsystemBase {
   @Override
   public void periodic() {
     swerveOdometry.update(getYaw(), getPositions());
+
+    for(SwerveModule mod : modules){
+      SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Cancoder", mod.getCanCoderDegrees().getDegrees());
+      SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Integrated", mod.getPosition().angle.getDegrees());
+      SmartDashboard.putNumber("Mod " + mod.moduleNumber + " Velocity", mod.getState().speedMetersPerSecond);    
+  }
+  SmartDashboard.putNumber("Gyro Yaw", getYaw().getDegrees());
   }
 
   @Override

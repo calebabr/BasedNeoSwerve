@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.Swerve;
 
 /**
@@ -13,18 +14,21 @@ import frc.robot.subsystems.Swerve;
  * subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-  public final Joystick driver;
+  public final Joystick leftJoy;
+  public final Joystick rightJoy;
+  public final XboxController xbox;
 
   public final Swerve swerve;
 
-  public final AutoCommands auto;
 
   public RobotContainer() {
-    driver = new Joystick(Constants.kControls.DRIVE_JOYSTICK_ID);
+    leftJoy = new Joystick(Constants.kControls.LEFT_JOY_ID);
+    rightJoy = new Joystick(Constants.kControls.RIGHT_JOY_ID);
+    xbox = new XboxController(2);
+
 
     swerve = new Swerve();
 
-    auto = new AutoCommands(swerve);
 
     // Configure button bindings
     configureButtonBindings();
@@ -38,23 +42,18 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     swerve.setDefaultCommand(swerve.drive(
-      () -> -Constants.kControls.X_DRIVE_LIMITER.calculate(driver.getRawAxis(Constants.kControls.TRANSLATION_Y_AXIS)),
-      () -> -Constants.kControls.Y_DRIVE_LIMITER.calculate(driver.getRawAxis(Constants.kControls.TRANSLATION_X_AXIS)), 
-      () -> -Constants.kControls.THETA_DRIVE_LIMITER.calculate(driver.getRawAxis(Constants.kControls.ROTATION_AXIS)),
+      () -> -Constants.kControls.X_DRIVE_LIMITER.calculate(leftJoy.getX()),
+      () -> -Constants.kControls.Y_DRIVE_LIMITER.calculate(-leftJoy.getY()), 
+      () -> -Constants.kControls.THETA_DRIVE_LIMITER.calculate(rightJoy.getX()),
       true,
       false
     ));
 
-    new JoystickButton(driver, Constants.kControls.GYRO_RESET_BUTTON)
+    new JoystickButton(xbox, Constants.kControls.GYRO_RESET_BUTTON)
       .onTrue(swerve.zeroGyroCommand());
+    
+      new JoystickButton(xbox, Constants.kControls.GYRO_RESET_BUTTON).onTrue(swerve.zeroGyroCommand());
   }
 
-    /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
-    return auto.getSelectedCommand();
-  }
+
 }

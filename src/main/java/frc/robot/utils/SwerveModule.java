@@ -93,6 +93,10 @@ public class SwerveModule {
     return new SwerveModulePosition(distance, rot);
   }
 
+  public Rotation2d getCanCoderDegrees(){
+    return Rotation2d.fromDegrees(canCoder.getAbsolutePosition());
+  }
+  
   private void configureDevices() {
     // Drive motor configuration.
     driveMotor.restoreFactoryDefaults();

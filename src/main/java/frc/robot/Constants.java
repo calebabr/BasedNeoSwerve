@@ -8,6 +8,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.utils.SwerveModuleConstants;
+import edu.wpi.first.wpilibj.Joystick;
 
 /**
  * This class contains values that remain constant while the robot is running.
@@ -20,11 +21,13 @@ public class Constants {
   public static class kControls {
     public static final double AXIS_DEADZONE = 0.1;
 
-    public static final int DRIVE_JOYSTICK_ID = 0;
+    public static final int LEFT_JOY_ID = 0;
+    public static final int RIGHT_JOY_ID = 1;
+    public static final int DRIVE_JOYSTICK_ID = 2;
 
-    public static final int TRANSLATION_X_AXIS = XboxController.Axis.kLeftX.value;
-    public static final int TRANSLATION_Y_AXIS = XboxController.Axis.kLeftY.value;
-    public static final int ROTATION_AXIS = XboxController.Axis.kRightX.value;
+    public static final int TRANSLATION_X_AXIS = Joystick.AxisType.kX.value;
+    public static final int TRANSLATION_Y_AXIS = Joystick.AxisType.kY.value;
+    public static final int ROTATION_AXIS = Joystick.AxisType.kX.value;
 
     public static final int GYRO_RESET_BUTTON = XboxController.Button.kY.value;
 
@@ -37,9 +40,9 @@ public class Constants {
   /** All swerve constants. */
   public static class kSwerve {
     /** Constants that apply to the whole drive train. */
-    public static final double TRACK_WIDTH = Units.inchesToMeters(19.5); // Width of the drivetrain measured from the middle of the wheels.
-    public static final double WHEEL_BASE = Units.inchesToMeters(19.5); // Length of the drivetrain measured from the middle of the wheels.
-    public static final double WHEEL_DIAMETER = Units.inchesToMeters(4);
+    public static final double TRACK_WIDTH = Units.inchesToMeters(28); // Width of the drivetrain measured from the middle of the wheels.
+    public static final double WHEEL_BASE = Units.inchesToMeters(28); // Length of the drivetrain measured from the middle of the wheels.
+    public static final double WHEEL_DIAMETER = Units.inchesToMeters(3.75);
     public static final double WHEEL_CIRCUMFERENCE = WHEEL_DIAMETER * Math.PI;
 
     public static final SwerveDriveKinematics KINEMATICS = new SwerveDriveKinematics(
@@ -61,8 +64,8 @@ public class Constants {
     public static final double CLOSED_LOOP_RAMP = 0.0;
 
     /** Current limiting. */
-    public static final int DRIVE_CURRENT_LIMIT = 35;
-    public static final int ANGLE_CURRENT_LIMIT = 25;
+    public static final int DRIVE_CURRENT_LIMIT = 40;
+    public static final int ANGLE_CURRENT_LIMIT = 40;
 
     /** Drive motor PID values. */
     public static final double DRIVE_KP = 0.1;
@@ -82,8 +85,8 @@ public class Constants {
     public static final double ANGLE_KF = 0.0;
     
     /** Swerve constraints. */
-    public static final double MAX_VELOCITY_METERS_PER_SECOND = 3.0;
-    public static final double MAX_ANGULAR_RADIANS_PER_SECOND = 4.0;
+    public static final double MAX_VELOCITY_METERS_PER_SECOND = 1.0;
+    public static final double MAX_ANGULAR_RADIANS_PER_SECOND = 3.5;
 
     /** Inversions. */
     public static final boolean DRIVE_MOTOR_INVERSION = true;
@@ -99,32 +102,32 @@ public class Constants {
      * CanCoder offset is in DEGREES, not radians like the rest of the repo.
      * This is to make offset slightly more accurate and easier to measure.
      */
-    public static final SwerveModuleConstants MOD_0_Constants = new SwerveModuleConstants(
-      1,
-      2,
+    public static final SwerveModuleConstants MOD_0_Constants = new SwerveModuleConstants( // FL
       3,
-      203.115234
+      4,
+      2,
+      269.29
     );
 
-    public static final SwerveModuleConstants MOD_1_Constants = new SwerveModuleConstants(
-      4,
+    public static final SwerveModuleConstants MOD_1_Constants = new SwerveModuleConstants( // FR
       5,
       6,
-      191.074219  
+      3,
+      308.23
     );
 
-    public static final SwerveModuleConstants MOD_2_Constants = new SwerveModuleConstants(
+    public static final SwerveModuleConstants MOD_2_Constants = new SwerveModuleConstants( // BL
+      1,
+      2,
+      1,
+      315.53
+    );
+
+    public static final SwerveModuleConstants MOD_3_Constants = new SwerveModuleConstants( // BR
       7,
       8,
-      9,
-      203.906250
-    );
-
-    public static final SwerveModuleConstants MOD_3_Constants = new SwerveModuleConstants(
-      10,
-      11,
-      12,
-      155.214844
+      4,
+      257.58
     );
   }
 
