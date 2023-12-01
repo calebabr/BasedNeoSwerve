@@ -56,6 +56,7 @@ public class SwerveModule {
   public void setState(SwerveModuleState state, boolean isOpenLoop) {
     // Prevents angle motor from turning further than it needs to. 
     // E.G. rotating from 10 to 270 degrees CW vs CCW.
+    System.out.println("Angle: " + state.angle.getRadians() + "Mod #: " + moduleNumber);
     state = SwerveModuleState.optimize(state, getState().angle);
 
     if (isOpenLoop) {
@@ -69,9 +70,8 @@ public class SwerveModule {
       ? lastAngle
       : state.angle.getRadians();
 
-    anglePID.setReference(0.0, CANSparkMax.ControlType.kPosition);
+    anglePID.setReference(angle, CANSparkMax.ControlType.kPosition);
 
-    System.out.println("Angle: " + angle);
     lastAngle = angle;
   }
 
