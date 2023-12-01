@@ -69,7 +69,9 @@ public class SwerveModule {
       ? lastAngle
       : state.angle.getRadians();
 
-    anglePID.setReference(angle, CANSparkMax.ControlType.kPosition);
+    anglePID.setReference(0.0, CANSparkMax.ControlType.kPosition);
+
+    System.out.println("Angle: " + angle);
     lastAngle = angle;
   }
 
@@ -82,7 +84,6 @@ public class SwerveModule {
   public double getCanCoder() {
     return canCoder.getAbsolutePosition();
   }
-
 
   public Rotation2d getAngle() {
     return new Rotation2d(angleEncoder.getPosition());
@@ -133,7 +134,7 @@ public class SwerveModule {
 
     angleEncoder.setPositionConversionFactor(Constants.kSwerve.ANGLE_ROTATIONS_TO_RADIANS);
     angleEncoder.setVelocityConversionFactor(Constants.kSwerve.ANGLE_RPM_TO_RADIANS_PER_SECOND);
-    angleEncoder.setPosition(Units.degreesToRadians(canCoder.getAbsolutePosition() - canCoderOffsetDegrees)); // Here is where data from
+    angleEncoder.setPosition(Units.degreesToRadians(0)); // Here is where data from
                                                                                                               // cancoders get passed to sparkmax encoders
 
     // CanCoder configuration.

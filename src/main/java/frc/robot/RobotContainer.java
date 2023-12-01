@@ -47,11 +47,11 @@ public class RobotContainer {
       () -> -Constants.kControls.THETA_DRIVE_LIMITER.calculate(rightJoy.getX()),
       true,
       false
-    ));
+      ));
 
-    new JoystickButton(xbox, Constants.kControls.GYRO_RESET_BUTTON)
-      .onTrue(swerve.zeroGyroCommand());
+    // new JoystickButton(xbox, Constants.kControls.GYRO_RESET_BUTTON)
+    //   .onTrue(swerve.zeroGyroCommand());
     
-      new JoystickButton(xbox, Constants.kControls.GYRO_RESET_BUTTON).onTrue(swerve.zeroGyroCommand());
+    // new JoystickButton(xbox, Constants.kControls.GYRO_RESET_BUTTON).onTrue(swerve.zeroGyroCommand());
   }
 }
