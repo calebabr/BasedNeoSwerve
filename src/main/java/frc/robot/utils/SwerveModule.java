@@ -83,6 +83,7 @@ public class SwerveModule {
     return canCoder.getAbsolutePosition();
   }
 
+
   public Rotation2d getAngle() {
     return new Rotation2d(angleEncoder.getPosition());
   }
