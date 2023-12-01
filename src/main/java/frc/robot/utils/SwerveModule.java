@@ -100,6 +100,16 @@ public class SwerveModule {
   }
   
   private void configureDevices() {
+    // CanCoder configuration.
+    CANCoderConfiguration canCoderConfiguration = new CANCoderConfiguration();
+    canCoderConfiguration.absoluteSensorRange = AbsoluteSensorRange.Unsigned_0_to_360;
+    canCoderConfiguration.sensorDirection = Constants.kSwerve.CANCODER_INVERSION;
+    canCoderConfiguration.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
+    canCoderConfiguration.sensorTimeBase = SensorTimeBase.PerSecond;
+      
+    canCoder.configFactoryDefault();
+    canCoder.configAllSettings(canCoderConfiguration);
+
     // Drive motor configuration.
     driveMotor.restoreFactoryDefaults();
     driveMotor.setInverted(Constants.kSwerve.DRIVE_MOTOR_INVERSION);
@@ -134,17 +144,6 @@ public class SwerveModule {
 
     angleEncoder.setPositionConversionFactor(Constants.kSwerve.ANGLE_ROTATIONS_TO_RADIANS);
     angleEncoder.setVelocityConversionFactor(Constants.kSwerve.ANGLE_RPM_TO_RADIANS_PER_SECOND);
-    angleEncoder.setPosition(Units.degreesToRadians(0)); // Here is where data from
-                                                                                                              // cancoders get passed to sparkmax encoders
-
-    // CanCoder configuration.
-    CANCoderConfiguration canCoderConfiguration = new CANCoderConfiguration();
-    canCoderConfiguration.absoluteSensorRange = AbsoluteSensorRange.Unsigned_0_to_360;
-    canCoderConfiguration.sensorDirection = Constants.kSwerve.CANCODER_INVERSION;
-    canCoderConfiguration.initializationStrategy = SensorInitializationStrategy.BootToAbsolutePosition;
-    canCoderConfiguration.sensorTimeBase = SensorTimeBase.PerSecond;
-    
-    canCoder.configFactoryDefault();
-    canCoder.configAllSettings(canCoderConfiguration);
+    angleEncoder.setPosition(Units.degreesToRadians(canCoder.getAbsolutePosition() - canCoderOffsetDegrees)); 
   }
 }
