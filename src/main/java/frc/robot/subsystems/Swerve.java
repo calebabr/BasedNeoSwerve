@@ -27,6 +27,7 @@ public class Swerve extends SubsystemBase {
 
   public Swerve() {
     gyro = new AHRS();
+    zeroGyro();
 
     modules = new SwerveModule[] {
       new SwerveModule(0, Constants.kSwerve.MOD_0_Constants),
@@ -36,7 +37,6 @@ public class Swerve extends SubsystemBase {
     };
 
     swerveOdometry = new SwerveDriveOdometry(Constants.kSwerve.KINEMATICS, getYaw(), getPositions());
-    zeroGyro();
   }
 
   /** 
