@@ -52,6 +52,6 @@ public class RobotContainer {
     // new JoystickButton(xbox, Constants.kControls.GYRO_RESET_BUTTON)
     //   .onTrue(swerve.zeroGyroCommand());
     
-    // new JoystickButton(xbox, Constants.kControls.GYRO_RESET_BUTTON).onTrue(swerve.zeroGyroCommand());
+    new JoystickButton(xbox, XboxController.Button.kY.value).onTrue(swerve.zeroGyroCommand());
   }
 }
