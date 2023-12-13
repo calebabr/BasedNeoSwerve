@@ -42,8 +42,8 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     swerve.setDefaultCommand(swerve.drive(
-      () -> -Constants.kControls.Y_DRIVE_LIMITER.calculate(leftJoy.getY()), 
-      () -> -Constants.kControls.X_DRIVE_LIMITER.calculate(-leftJoy.getX()),  
+      () -> Constants.kControls.Y_DRIVE_LIMITER.calculate(leftJoy.getY()), 
+      () -> Constants.kControls.X_DRIVE_LIMITER.calculate(leftJoy.getX()),  
       () -> -Constants.kControls.THETA_DRIVE_LIMITER.calculate(rightJoy.getX()),
       false,
       false

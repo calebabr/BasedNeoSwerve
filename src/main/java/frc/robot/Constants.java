@@ -90,7 +90,7 @@ public class Constants {
 
     /** Inversions. */
     public static final boolean DRIVE_MOTOR_INVERSION = true;
-    public static final boolean ANGLE_MOTOR_INVERSION = false;
+    public static final boolean ANGLE_MOTOR_INVERSION = true;
     public static final boolean CANCODER_INVERSION = false;
 
     /** Idle modes. */
@@ -102,28 +102,28 @@ public class Constants {
      * CanCoder offset is in DEGREES, not radians like the rest of the repo.
      * This is to make offset slightly more accurate and easier to measure.
      */
-    public static final SwerveModuleConstants MOD_0_Constants = new SwerveModuleConstants( // FL
+    public static final SwerveModuleConstants MOD_0_Constants = new SwerveModuleConstants( // FL -x +y
       3,
       4,
       2,
       269.29
     );
 
-    public static final SwerveModuleConstants MOD_1_Constants = new SwerveModuleConstants( // FR
+    public static final SwerveModuleConstants MOD_1_Constants = new SwerveModuleConstants( // FR +x +y
       5,
       6,
       3,
       308.23
     );
 
-    public static final SwerveModuleConstants MOD_2_Constants = new SwerveModuleConstants( // BL
+    public static final SwerveModuleConstants MOD_2_Constants = new SwerveModuleConstants( // BL -x -y
       1,
       2,
       1,
       315.53
     );
 
-    public static final SwerveModuleConstants MOD_3_Constants = new SwerveModuleConstants( // BR
+    public static final SwerveModuleConstants MOD_3_Constants = new SwerveModuleConstants( // BR +x -y
       7,
       8,
       4,
