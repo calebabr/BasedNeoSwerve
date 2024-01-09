@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj.XboxController;
 import frc.robot.subsystems.Swerve;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -17,6 +19,8 @@ public class RobotContainer {
   public final Joystick leftJoy;
   public final Joystick rightJoy;
   public final XboxController xbox;
+  public final CommandXboxController commXbox;
+  // public final Trigger yButton;
 
   public final Swerve swerve;
 
@@ -25,8 +29,8 @@ public class RobotContainer {
     leftJoy = new Joystick(Constants.kControls.LEFT_JOY_ID);
     rightJoy = new Joystick(Constants.kControls.RIGHT_JOY_ID);
     xbox = new XboxController(2);
-
-
+    commXbox = new CommandXboxController(2);
+    
     swerve = new Swerve();
 
 
@@ -42,16 +46,18 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     swerve.setDefaultCommand(swerve.drive(
-      () -> Constants.kControls.Y_DRIVE_LIMITER.calculate(leftJoy.getY()), 
-      () -> Constants.kControls.X_DRIVE_LIMITER.calculate(leftJoy.getX()),  
+      () -> -Constants.kControls.Y_DRIVE_LIMITER.calculate(leftJoy.getY()), 
+      () -> -Constants.kControls.X_DRIVE_LIMITER.calculate(leftJoy.getX()),  
       () -> -Constants.kControls.THETA_DRIVE_LIMITER.calculate(rightJoy.getX()),
-      false,
+      true,
       false
       ));
 
     // new JoystickButton(xbox, Constants.kControls.GYRO_RESET_BUTTON)
     //   .onTrue(swerve.zeroGyroCommand());
     
-    new JoystickButton(xbox, XboxController.Button.kY.value).onTrue(swerve.zeroGyroCommand());
+    // new JoystickButton(commXbox, XboxController.Button.kY.value).onTrue(swerve.zeroGyroCommand());
+
+    commXbox.y().onTrue(swerve.zeroGyroCommand());
   }
 }
